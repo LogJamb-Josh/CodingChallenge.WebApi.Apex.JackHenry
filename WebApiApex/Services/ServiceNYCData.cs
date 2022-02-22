@@ -36,7 +36,11 @@ namespace WebApiApex.Services
 
 
         //Public Methods
-        //   1. return departments whose expenses meet or exceed their funding
+
+        /// <summary>
+        /// 1. return departments whose expenses meet or exceed their funding
+        /// </summary>
+        /// <returns></returns>
         public List<DepartmentsExpensesOverFundingResponseModel> DepartmentsExpensesOverFunding()
         {
             return NYCData
@@ -45,42 +49,86 @@ namespace WebApiApex.Services
                 .ToList();
         }
 
-        //   2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
+        /// <summary>
+        /// 2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
+        /// </summary>
+        /// <param name="percentIncreaseFilter"></param>
+        /// <param name="numberOfYearsFilter"></param>
+        /// <returns></returns>
         public List<DepartmentsExpensesIncreasedResponseModel> DepartmentsExpensesIncreased(int percentIncreaseFilter, int numberOfYearsFilter)
         {
+            //First, join the results to itself to get the set that is numberOfYearsFilter apart.  Filter out DivideByZero errors.
+            var early = NYCData.Where(_ => _.FundsUsed != 0).ToList();
+            var late = NYCData.Where(_ => _.FundsUsed != 0).ToList();
 
+            //Join on DeptId.  That gets you the combinations.
+            //While I'm at it, calculate the percentDiff.
+            return early.Join(late,
+                early => early.DeptId,
+                late => late.DeptId,
+                (early, late) => new { 
+                    Early = early, 
+                    Late = late, 
+                    percentExpenseIncrease = (int)Math.Round((Decimal)((Decimal)((late.FundsUsed - early.FundsUsed) / early.FundsUsed) * 100), 0) 
+                })
 
-            percentIncreaseFilter = 10;
-            numberOfYearsFilter = 7;
+                //Filter by matches with the right year gap.
+                .Where(_ => _.Late.FiscalYear - _.Early.FiscalYear == numberOfYearsFilter)
 
-            var L = NYCData.ToList();
-            var R = NYCData.ToList();
+                //Filter by matches with the right percentage filter.
+                .Where(_ => _.percentExpenseIncrease == percentIncreaseFilter)
 
-            //Do a join on DeptId.  That gets you the combinations.
-            //Filter by matches with the right year gap.
-            //Filter by matches with the right percentage filter.
-            var query = L.Join(R,
-                ll => ll.DeptId,
-                rr => rr.DeptId,
-                (ll, rr) => new { L = ll, R = rr })
-                .Where(_ => _.L.FiscalYear - _.R.FiscalYear == numberOfYearsFilter)
-                .Where(_ => _.L.FundsUsed > 0)
-                .Where(_ => _.R.FundsUsed > 0)
-                //.Where(_ => (int)(((_.R.FundsUsed - _.L.FundsUsed) / _.L.FundsUsed) * 100) == percentIncreaseFilter);
-                .Select(_ => new DepartmentsExpensesIncreasedResponseModel() { DeptId = _.L.DeptId, DeptName = _.L.DeptName, EarlyFiscalYear = _.L.FiscalYear, EarlyFundsUsed = _.L.FundsUsed, LastFiscalYear = _.R.FiscalYear, LateFundsUsed = _.R.FundsUsed, YearsDifferent= _.L.FiscalYear - _.R.FiscalYear, PercentDifferent = (((_.R.FundsUsed - _.L.FundsUsed) / _.L.FundsUsed) * 100) });
-
-            //var one = query.ToList();
-
-            //return null;
-            return query.ToList();
-
+                //Specify what values to keep.
+                .Select(_ => new DepartmentsExpensesIncreasedResponseModel() {
+                    DeptId = _.Early.DeptId,
+                    DeptName = _.Early.DeptName,
+                    EarlyFiscalYear = _.Early.FiscalYear,
+                    EarlyFundsUsed = _.Early.FundsUsed,
+                    LastFiscalYear = _.Late.FiscalYear,
+                    LateFundsUsed = _.Late.FundsUsed,
+                    YearsDifferent = _.Late.FiscalYear - _.Early.FiscalYear,
+                    PercentExpenseIncrease = _.percentExpenseIncrease
+                })
+                .ToList();
         }
 
         //   3. return departments whose expenses are a user specified percentage below their funding year over year.
-        public Task DepartmentsExpensesBelowFunding()
+        public List<DepartmentsExpensesBelowFundingResponseModel> DepartmentsExpensesBelowFunding(int belowFundingPercentageFilter)
         {
-            RefreshData();
-            return Task.CompletedTask;
+            //First, join the results to itself to get the set that is numberOfYearsFilter apart.  Filter out DivideByZero errors.
+            var early = NYCData.Where(_ => _.FundsAvailable != 0).ToList();
+            var late = NYCData.Where(_ => _.FundsAvailable != 0).ToList();
+
+            //Join on DeptId.  That gets you the combinations.
+            //While I'm at it, calculate the percentDiff.
+            return early.Join(late,
+                early => early.DeptId,
+                late => late.DeptId,
+                (early, late) => new
+                {
+                    Early = early,
+                    Late = late,
+                    fundingDecreasePercentage = (int)Math.Round((Decimal)((Decimal)((Decimal)(early.FundsAvailable - late.FundsAvailable) / early.FundsAvailable) * 100), 0)
+                })
+
+                //Filter by matches with the right year gap.
+                .Where(_ => _.Late.FiscalYear - _.Early.FiscalYear == 1)
+
+                //Filter by matches with the right percentage filter.
+                .Where(_ => _.fundingDecreasePercentage == belowFundingPercentageFilter)
+
+                //Specify what values to keep.
+                .Select(_ => new DepartmentsExpensesBelowFundingResponseModel()
+                {
+                    DeptId = _.Early.DeptId,
+                    DeptName = _.Early.DeptName,
+                    EarlyFiscalYear = _.Early.FiscalYear,
+                    EarlyFundsAvailable = _.Early.FundsUsed,
+                    LastFiscalYear = _.Late.FiscalYear,
+                    LateFundsAvailable = _.Late.FundsUsed,                    
+                    FundingDecreasePercentage = _.fundingDecreasePercentage
+                })
+                .ToList();
         }
 
 

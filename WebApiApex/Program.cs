@@ -60,11 +60,11 @@ app.MapGet("/DepartmentsExpensesIncreased/{percentIncreaseFilter}/{numberOfYears
 });
 
 //   3. return departments whose expenses are a user specified percentage below their funding year over year.
-app.MapGet("/DepartmentsExpensesBelowFunding", (ServiceNYCData s) =>
+app.MapGet("/DepartmentsExpensesBelowFunding/{belowFundingPercentageFilter}", (int belowFundingPercentageFilter, ServiceNYCData s) =>
 {
     try
     {
-        s.DepartmentsExpensesBelowFunding();
+        return s.DepartmentsExpensesBelowFunding(belowFundingPercentageFilter);
     }
     catch (global::System.Exception)
     {
