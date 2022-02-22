@@ -1,10 +1,15 @@
 ﻿# APEX Coding Challenge
-### Write a web api that will call an external(3rd party) service that will return past years accounting information for NYC departments.  Include unit tests, error handling, caching, dependency injection, and best practices. 
 
-### The api should have endpoints that: 
+## Description
+Write a web api that will call an external(3rd party) service that will return past years accounting information for NYC departments.  Include unit tests, error handling, caching, dependency injection, and best practices. 
+
+The api should have endpoints that: 
    1. return departments whose expenses meet or exceed their funding
+   - DepartmentsExpensesOverFunding
    2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
+   - DepartmentsExpensesIncreased
    3. return departments whose expenses are a user specified percentage below their funding year over year.
+   - DepartmentsExpensesBelowFunding
    
 ### Note: for this challenge the json indexes of importance are: * (This means in the returned data, the data at index 9 is the fiscal year.)
    9 = fiscal year 
