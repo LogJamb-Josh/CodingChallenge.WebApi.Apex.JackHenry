@@ -26,10 +26,11 @@ Note: for this challenge the json indexes of importance are:
 1. This is the endpoint this WebApi should hit.
    - https://mockbin.org/bin/fb525688-91a7-47da-a319-fcfc24a14001
 
-Ed Mclaughlin issues the test.
-edmclaughlin@hotmail.com
+# Contacts
+- Ed Mclaughlin issues the test.
+  - edmclaughlin@hotmail.com
 
-Ben is the contact at Apex.
-bwoschnick@apexsystems.com
+- Ben is the contact at Apex.
+  - bwoschnick@apexsystems.com
 
 
