@@ -1,15 +1,21 @@
 using WebApiApex.Services;
 
+//Create the Builder
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//DI the HttpClient to get NYC Data from MockBin.
+builder.Services.AddHttpClient("MockBinClient", client => client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("MockBinBaseUri")));
+
+//DI the Service for NYC Data 
 builder.Services.AddScoped<ServiceNYCData>();
 
-
+//Build the builder.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,34 +25,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//Middleware that redirects http requests to https.
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 
 //   1. return departments whose expenses meet or exceed their funding
-app.MapGet("/DepartmentsExpensesOverFunding", async (ServiceNYCData s) =>
+app.MapGet("/DepartmentsExpensesOverFunding", (ServiceNYCData s) =>
 {
     try
     {
-        await s.DepartmentsExpensesOverFunding();
+        return s.DepartmentsExpensesOverFunding();
     }
     catch (global::System.Exception)
     {
@@ -57,11 +45,11 @@ app.MapGet("/DepartmentsExpensesOverFunding", async (ServiceNYCData s) =>
 });
 
 //   2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
-app.MapGet("/DepartmentsExpensesIncreased", async (ServiceNYCData s) =>
+app.MapGet("/DepartmentsExpensesIncreased/{percentIncreaseFilter}/{numberOfYearsFilter}", (int percentIncreaseFilter, int numberOfYearsFilter, ServiceNYCData s) =>
 {
     try
     {
-        await s.DepartmentsExpensesIncreased();
+        return s.DepartmentsExpensesIncreased(percentIncreaseFilter, numberOfYearsFilter);
     }
     catch (global::System.Exception)
     {
@@ -72,11 +60,11 @@ app.MapGet("/DepartmentsExpensesIncreased", async (ServiceNYCData s) =>
 });
 
 //   3. return departments whose expenses are a user specified percentage below their funding year over year.
-app.MapGet("/DepartmentsExpensesBelowFunding", async (ServiceNYCData s) =>
+app.MapGet("/DepartmentsExpensesBelowFunding", (ServiceNYCData s) =>
 {
     try
     {
-        await s.DepartmentsExpensesBelowFunding();
+        s.DepartmentsExpensesBelowFunding();
     }
     catch (global::System.Exception)
     {
@@ -86,9 +74,33 @@ app.MapGet("/DepartmentsExpensesBelowFunding", async (ServiceNYCData s) =>
 
 
 });
+
+//Run the app.
 app.Run();
 
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
+
+//var summaries = new[]
+//{
+//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+//};
+
+//app.MapGet("/weatherforecast", () =>
+//{
+//    var forecast = Enumerable.Range(1, 5).Select(index =>
+//       new WeatherForecast
+//       (
+//           DateTime.Now.AddDays(index),
+//           Random.Shared.Next(-20, 55),
+//           summaries[Random.Shared.Next(summaries.Length)]
+//       ))
+//        .ToArray();
+//    return forecast;
+//})
+//.WithName("GetWeatherForecast");
+
+
+//internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
+//{
+//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+//}

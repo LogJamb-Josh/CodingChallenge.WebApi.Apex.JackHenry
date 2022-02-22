@@ -35,6 +35,9 @@ Note: for this challenge the json indexes of importance are:
 - 13 = funds used
 - 14 = remarks
    
+Note: The .json file has a funky format.  I used this tool to generate the matching C# format.
+      - https://json2csharp.com/ 
+
 ## Input Endpoint
 1. This is the endpoint this WebApi should hit.
    - https://mockbin.org/bin/fb525688-91a7-47da-a319-fcfc24a14001
