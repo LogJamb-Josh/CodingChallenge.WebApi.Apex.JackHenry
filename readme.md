@@ -26,8 +26,8 @@ The api should have endpoints that:
 - Use Microsoft's in memory cache.  It is a nuget package.
 
 ## Models
-(This means in the returned data, the data at index 9 is the fiscal year.)
 Note: for this challenge the json indexes of importance are: 
+** (This means in the returned data, the data at index 9 is the fiscal year.) **
 - 9 = fiscal year 
 - 10 = dept. id
 - 11 = dept. name
