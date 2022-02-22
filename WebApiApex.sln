@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiApex", "WebApiApex\WebApiApex.csproj", "{DE211880-924C-4CB1-88A4-E12EAC2BA1EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{9683D863-F5B3-48C5-B833-064287ADA556}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE211880-924C-4CB1-88A4-E12EAC2BA1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE211880-924C-4CB1-88A4-E12EAC2BA1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE211880-924C-4CB1-88A4-E12EAC2BA1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE211880-924C-4CB1-88A4-E12EAC2BA1EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9683D863-F5B3-48C5-B833-064287ADA556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9683D863-F5B3-48C5-B833-064287ADA556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9683D863-F5B3-48C5-B833-064287ADA556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9683D863-F5B3-48C5-B833-064287ADA556}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A40878BF-1F3B-4D93-8A00-A03A191C3D5C}
+	EndGlobalSection
+EndGlobal
