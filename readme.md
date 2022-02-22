@@ -12,6 +12,19 @@ The api should have endpoints that:
 3. return departments whose expenses are a user specified percentage below their funding year over year.
    - "/Departments/ExpensesBelowFunding"
    
+## Error Codes
+- 400's
+  - 404
+  - Bad Request
+- 200
+- 500
+
+## Unit Testing
+- Use Mocking, specifically moq.
+
+## Caching
+- Use Microsoft's in memory cache.  It is a nuget package.
+
 ## Models
 (This means in the returned data, the data at index 9 is the fiscal year.)
 Note: for this challenge the json indexes of importance are: 
@@ -26,7 +39,7 @@ Note: for this challenge the json indexes of importance are:
 1. This is the endpoint this WebApi should hit.
    - https://mockbin.org/bin/fb525688-91a7-47da-a319-fcfc24a14001
 
-# Contacts
+## Contacts
 - Ed Mclaughlin issues the test.
   - edmclaughlin@hotmail.com
 
@@ -34,3 +47,5 @@ Note: for this challenge the json indexes of importance are:
   - bwoschnick@apexsystems.com
 
 
+## Finally
+When the project is complete, compile it.  Then locate the Bin and Object folders, zip them up, and email them to Ben.
