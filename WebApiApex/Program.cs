@@ -1,3 +1,4 @@
+using WebApiApex.DTO;
 using WebApiApex.Services;
 
 //Create the Builder
@@ -29,78 +30,61 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-//   1. return departments whose expenses meet or exceed their funding
+/// <summary>
+/// 1. return departments whose expenses meet or exceed their funding
+/// </summary>
 app.MapGet("/DepartmentsExpensesOverFunding", (ServiceNYCData s) =>
 {
     try
     {
-        return s.DepartmentsExpensesOverFunding();
+        return Results.Ok(s.DepartmentsExpensesOverFunding());
     }
-    catch (global::System.Exception)
+    catch (Exception e)
     {
-
-        throw;
+        //Maybe log the exception happened.
+        return Results.Problem();
     }
+})
+    .Produces<List<DepartmentsExpensesOverFundingResponseModel>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status500InternalServerError);
 
-});
-
-//   2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
+/// <summary>
+/// 2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
+/// </summary>
 app.MapGet("/DepartmentsExpensesIncreased/{percentIncreaseFilter}/{numberOfYearsFilter}", (int percentIncreaseFilter, int numberOfYearsFilter, ServiceNYCData s) =>
 {
     try
     {
-        return s.DepartmentsExpensesIncreased(percentIncreaseFilter, numberOfYearsFilter);
+        return Results.Ok(s.DepartmentsExpensesIncreased(percentIncreaseFilter, numberOfYearsFilter));
     }
-    catch (global::System.Exception)
+    catch (Exception e)
     {
-
-        throw;
+        //Maybe log the exception happened.
+        return Results.Problem();
     }
 
-});
+})
+    .Produces<List<DepartmentsExpensesIncreasedResponseModel>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status500InternalServerError);
 
-//   3. return departments whose expenses are a user specified percentage below their funding year over year.
+/// <summary>
+/// 3. return departments whose expenses are a user specified percentage below their funding year over year.
+/// </summary>
 app.MapGet("/DepartmentsExpensesBelowFunding/{belowFundingPercentageFilter}", (int belowFundingPercentageFilter, ServiceNYCData s) =>
 {
     try
     {
-        return s.DepartmentsExpensesBelowFunding(belowFundingPercentageFilter);
+        return Results.Ok(s.DepartmentsExpensesBelowFunding(belowFundingPercentageFilter));
     }
-    catch (global::System.Exception)
+    catch (Exception e)
     {
-
-        throw;
+        //Maybe log the exception happened.
+        return Results.Problem();
     }
-
-
-});
+})
+    .Produces<List<DepartmentsExpensesBelowFundingResponseModel>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status500InternalServerError);
 
 //Run the app.
 app.Run();
 
-
-
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//       new WeatherForecast
-//       (
-//           DateTime.Now.AddDays(index),
-//           Random.Shared.Next(-20, 55),
-//           summaries[Random.Shared.Next(summaries.Length)]
-//       ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
-
-
-//internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}

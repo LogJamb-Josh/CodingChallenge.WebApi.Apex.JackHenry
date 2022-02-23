@@ -10,5 +10,6 @@
         public int LastFiscalYear { get; set; }
         public int YearsDifferent { get; set; }
         public int PercentExpenseIncrease { get; set; }
+
     }
 }
