@@ -39,7 +39,7 @@ app.MapGet("/DepartmentsExpensesOverFunding", (ServiceNYCData s) =>
     {
         return Results.Ok(s.DepartmentsExpensesOverFunding());
     }
-    catch (Exception e)
+    catch (Exception)
     {
         //Maybe log the exception happened.
         return Results.Problem();
@@ -57,7 +57,7 @@ app.MapGet("/DepartmentsExpensesIncreased/{percentIncreaseFilter}/{numberOfYears
     {
         return Results.Ok(s.DepartmentsExpensesIncreased(percentIncreaseFilter, numberOfYearsFilter));
     }
-    catch (Exception e)
+    catch (Exception)
     {
         //Maybe log the exception happened.
         return Results.Problem();
@@ -76,7 +76,7 @@ app.MapGet("/DepartmentsExpensesBelowFunding/{belowFundingPercentageFilter}", (i
     {
         return Results.Ok(s.DepartmentsExpensesBelowFunding(belowFundingPercentageFilter));
     }
-    catch (Exception e)
+    catch (Exception)
     {
         //Maybe log the exception happened.
         return Results.Problem();
@@ -88,3 +88,7 @@ app.MapGet("/DepartmentsExpensesBelowFunding/{belowFundingPercentageFilter}", (i
 //Run the app.
 app.Run();
 
+public partial class Program
+{
+    // Expose the Program class for use with WebApplicationFactory<T>
+}

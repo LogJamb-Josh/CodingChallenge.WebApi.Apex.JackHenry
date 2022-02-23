@@ -8,7 +8,7 @@ namespace WebApiApex.Services
     public class ServiceNYCData
     {
         //Fields
-        private HttpClient _ClientMockBin;
+        private readonly HttpClient _ClientMockBin;
         private readonly string _EndpointUri = "/bin/fb525688-91a7-47da-a319-fcfc24a14001";
         private readonly List<NYCDataNodeModel> _NYCData = new List<NYCDataNodeModel>();
         private bool _gotData = false;
