@@ -52,3 +52,10 @@ Note: The .json file has a funky format.  I used this tool to generate the match
 
 ## Finally
 When the project is complete, compile it.  Then locate the Bin and Object folders, zip them up, and email them to Ben.
+Here are the final endpoints
+- https://localhost:7256/DepartmentsExpensesOverFunding
+- https://localhost:7256/DepartmentsExpensesIncreased/10/7
+  - 10 is the percentage
+  - 7 is the year range
+- https://localhost:7256/DepartmentsExpensesBelowFunding/10
+  - 10 is the percentage
