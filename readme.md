@@ -12,7 +12,7 @@ I left myself a few notes by adding to and editing a copy of the original instru
 ## Conclusion
 On 2/25/2022 Zach at APEX said the results came in strong.  On 2/28/2022 I went through the code I wrote with 3 employees of Jack Henry.  I explained what I did.  
 I never felt like I stumbled.  The focus was on Dependency Injection and Linq.  I have experience with both so the hardest part was .Net 6, changes to Unit Testing 
-and going down the path or Integration testing which I never did get to work.
+and going down the path of integration testing which wasn't part of the challengs and I never got to work.
 
 As of 3/4/2022, I haven't heard anything back.  During our conversaton, I discovered this is a purely backend position.  
 I made it clear I wanted Blazor front end work as well as Azure back end work.  The job description listed Blazor but this is just a backend job.  
