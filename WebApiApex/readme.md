@@ -18,10 +18,3 @@ Include unit tests, error handling, caching, dependency injection, and best prac
 This is the endpoint this WebApi should hit.
 ** https://mockbin.org/bin/fb525688-91a7-47da-a319-fcfc24a14001
 
-Ed Mclaughlin issues the test.
-edmclaughlin@hotmail.com
-
-Ben is the contact at Apex.
-bwoschnick@apexsystems.com
-
-

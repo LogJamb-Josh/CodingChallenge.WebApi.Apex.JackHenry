@@ -1,61 +1,19 @@
-﻿# APEX Coding Challenge
+﻿# Introduction
+On about 2/21/2022, I accepted a coding challenge issued by either Jack Henry & Associates or APEX.  Someone hired Ben to give me the rules of the test and watch me get started.  
+I had just started looking at .Net 6 Minimal APIs so I simultaneously learned about Minimal APIs and completed the challenge.  I had 2 days to complete the challenge.
 
-## Description
-Write a web api that will call an external(3rd party) service that will return past years accounting information for NYC departments.  Include unit tests, error handling, caching, dependency injection, and best practices. 
+## Original Instructions
+The original directions were both verbal and SMS'd to me.  I copied the text to 
+[Original Instructions](WebApiApex/readme.md)
 
-## Output Endpoints
-The api should have endpoints that: 
-1. return departments whose expenses meet or exceed their funding
-   - "/Departments/ExpensesOverFunding"
-2. return deparments whose expenses have increased over time by user specified percentage (int) and # of years (int)
-   - "/Departments/ExpensesIncreased"
-3. return departments whose expenses are a user specified percentage below their funding year over year.
-   - "/Departments/ExpensesBelowFunding"
-   
-## Error Codes
-- 400's
-  - 404
-  - Bad Request
-- 200
-- 500
+## Running Documentation
+I left myself a few notes by adding to or editing the original instructions.  That document is here [RunningDoc.md](RunningDoc.md)
 
-## Unit Testing
-- Use Mocking, specifically moq.
+## Conclusion
+On 2/25/2022 Zach at APEX said the results came in strong.  On 2/28/2022 I went through the code I wrote with 3 employees of Jack Henry.  I explained what I did.  
+I never felt like I stumbled.  The focus was on Dependency Injection and Linq.  I have experience with both so the hardest part was .Net 6, changes to Unit Testing 
+and going down the path or Integration testing which I never did get to work.
 
-## Caching
-- Use Microsoft's in memory cache.  It is a nuget package.
-
-## Models
-Note: for this challenge the json indexes of importance are: 
-** (This means in the returned data, the data at index 9 is the fiscal year.) **
-- 9 = fiscal year 
-- 10 = dept. id
-- 11 = dept. name
-- 12 = funds available
-- 13 = funds used
-- 14 = remarks
-   
-Note: The .json file has a funky format.  I used this tool to generate the matching C# format.
-      - https://json2csharp.com/ 
-
-## Input Endpoint
-1. This is the endpoint this WebApi should hit.
-   - https://mockbin.org/bin/fb525688-91a7-47da-a319-fcfc24a14001
-
-## Contacts
-- Ed Mclaughlin issues the test.
-  - edmclaughlin@hotmail.com
-
-- Ben is the contact at Apex.
-  - bwoschnick@apexsystems.com
-
-
-## Finally
-When the project is complete, compile it.  Then locate the Bin and Object folders, zip them up, and email them to Ben.
-Here are the final endpoints
-- https://localhost:7256/DepartmentsExpensesOverFunding
-- https://localhost:7256/DepartmentsExpensesIncreased/10/7
-  - 10 is the percentage
-  - 7 is the year range
-- https://localhost:7256/DepartmentsExpensesBelowFunding/10
-  - 10 is the percentage
+As of 3/4/2022, I haven't heard anything back.  During our conversaton, I discovered this is a purely backend position.  
+I made it clear I wanted Blazor front end work as well as Azure back end work.  The job description listed Blazor but this is just a backend job.  
+I suspect this is why I haven't heard back.
