@@ -7,7 +7,7 @@ The original directions were both verbal and SMS'd to me.  I copied the text to
 [Original Instructions](WebApiApex/readme.md)
 
 ## Running Documentation
-I left myself a few notes by adding to or editing the original instructions.  That document is here [Running Documentation](RunningDoc.md)
+I left myself a few notes by adding to and editing a copy of the original instructions.  That document is here [Running Documentation](RunningDoc.md)
 
 ## Conclusion
 On 2/25/2022 Zach at APEX said the results came in strong.  On 2/28/2022 I went through the code I wrote with 3 employees of Jack Henry.  I explained what I did.  
